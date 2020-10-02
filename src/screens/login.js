@@ -70,7 +70,7 @@ function Login({ navigation }) {
                             }}>
 
                             <Text style={{ fontSize: height / 33, fontWeight: 'bold' }}>{t('auth.welcome')}
-                                &nbsp;- <Text style={{ fontWeight: 'bold', color: 'red' }}>{pkg.version}</Text>
+                                {/* &nbsp;- <Text style={{ fontWeight: 'bold', color: 'red' }}>{pkg.version}</Text> */}
                             </Text>
 
                             <Image
@@ -82,7 +82,7 @@ function Login({ navigation }) {
                                 resizeMode='contain'
                                 source={require('../../assets/illustrations/login_illustration.png')} />
 
-                            <View style={{ ...Sizes.mt16 }}>
+                            <View style={{ ...Sizes.mt16, marginTop: focusedInput ? -20 : 0 }}>
 
                                 <TextInput label={t('auth.username')}
                                     value={login.username}
@@ -163,7 +163,7 @@ function Login({ navigation }) {
                                         }} />
                                 </View>
 
-                                <Button title={t('auth.login')} style={{ height: height / 14.44, ...Sizes.mt8 }}
+                                <Button title={t('auth.login')} style={{ height: height / 14.44, ...Sizes.mt8, marginTop: focusedInput ? 40 : 0 }}
                                     textStyle={{ ...FontCfg.bold }}
                                     loading={login.loading} onPress={() => {
                                         login.login(loginSucceeded)
@@ -192,7 +192,7 @@ function Login({ navigation }) {
                 ref={registerModal}
                 setPosition = 'absolute'
                 fromBottom = '-20'
-                height={'75%'}>
+                height={'65%'}>
                 <Register
                     onSuccess={(username, password) => {
                         Defaults.showSuccessWithMessage(successfulRegText)

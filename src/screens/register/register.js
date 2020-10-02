@@ -117,7 +117,7 @@ function Register({ onSuccess }) {
                 flexDirection: 'row',
                 justifyContent: 'center',
                 alignItems: 'center',
-                marginTop: 14,
+                marginTop: 0,
             }, Common.horizontalMargin]}>
 
                 <View style={{ width: swipeIndex === 0 ? 0 : '15%' }}>
@@ -136,12 +136,12 @@ function Register({ onSuccess }) {
                     }}>{PAGES[swipeIndex]}</Text>
                 </View>
 
-                {/* <View style={{ width: '15%' }}>
+                <View style={{ width: '15%' }}>
                     <PagerBullets
                         style={{ alignSelf: 'flex-end' }}
                         swipeIndex={swipeIndex}
                         pages={PAGES} />
-                </View> */}
+                </View>
 
             </View>
 

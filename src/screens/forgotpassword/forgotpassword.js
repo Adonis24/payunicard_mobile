@@ -118,7 +118,7 @@ function ForgotPassword() {
                 flexDirection: 'row',
                 justifyContent: 'center',
                 alignItems: 'center',
-                marginTop: 24
+                marginTop: 0
             }, Common.horizontalMargin]}>
 
                 <View style={{width: swipeIndex === 0 ? 0 : '15%'}}>
@@ -129,20 +129,20 @@ function ForgotPassword() {
                         </TouchableOpacity> : null}
                 </View>
 
-                {/* <View
+                <View
                     style={{width: swipeIndex === 0 ? '85%' : '70%', alignItems: swipeIndex === 0 ? 'flex-start' : 'center'}}>
                     <Text style={{
                         color: Colors.text,
                         fontSize: 14,
                     }}>{PAGES[swipeIndex]}</Text>
-                </View> */}
+                </View>
 
-                {/* <View style={{width: '15%'}}>
+                <View style={{width: '15%'}}>
                     <PagerBullets
                         style={{alignSelf: 'flex-end'}}
                         swipeIndex={swipeIndex}
                         pages={PAGES}/>
-                </View> */}
+                </View>
 
             </View>
 

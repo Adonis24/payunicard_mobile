@@ -136,12 +136,12 @@ function Register({ onSuccess }) {
                     }}>{PAGES[swipeIndex]}</Text>
                 </View>
 
-                <View style={{ width: '15%' }}>
+                {/* <View style={{ width: '15%' }}>
                     <PagerBullets
                         style={{ alignSelf: 'flex-end' }}
                         swipeIndex={swipeIndex}
                         pages={PAGES} />
-                </View>
+                </View> */}
 
             </View>
 

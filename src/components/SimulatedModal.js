@@ -127,7 +127,7 @@ export default class SimulatedModal extends React.PureComponent {
     render() {
 
         const { animatedValue, visible } = this.state;
-        const { height, children, hasFlatCorners, hidesDragView } = this.props;
+        const { height, children, hasFlatCorners, hidesDragView, setPosition = 'relative', fromBottom = 0 } = this.props;
 
         const backgroundColor = animatedValue.interpolate({
             inputRange: [0, 1],
@@ -174,7 +174,9 @@ export default class SimulatedModal extends React.PureComponent {
                             borderTopRightRadius: !hasFlatCorners ? 10 : 0,
                             backgroundColor: 'white',
                             height,
-                            zIndex: 100,
+                            position: String(setPosition),
+                            bottom: Number(fromBottom),
+                            zIndex: 200,
                             transform: [{
                                 translateY
                             }]

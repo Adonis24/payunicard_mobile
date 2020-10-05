@@ -77,7 +77,8 @@ function Login({ navigation }) {
                                 style={{
                                     height: height / 3.2,
                                     alignSelf: 'center',
-                                    opacity: opacity
+                                    opacity: opacity,
+                                    marginBottom: 32
                                 }}
                                 resizeMode='contain'
                                 source={require('../../assets/illustrations/login_illustration.png')} />

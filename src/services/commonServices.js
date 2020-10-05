@@ -85,8 +85,13 @@ class CommonService {
 
         return {
             unsubscribe: () => {
-                axios.interceptors.request.eject(requestInterceptor);
+                try{
+                    axios.interceptors.request.eject(requestInterceptor);
+                }catch(err){}
+
+                try{
                 axios.interceptors.response.eject(responseInterceptor);
+                }catch(err){}
             }
         };
     }

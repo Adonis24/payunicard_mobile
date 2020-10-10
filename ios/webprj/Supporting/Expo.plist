@@ -12,5 +12,7 @@
     <integer>0</integer>
     <key>EXUpdatesReleaseChannel</key>
     <string>default</string>
+    <key>EXUpdatesEnabled</key>
+    <true/>
   </dict>
 </plist>

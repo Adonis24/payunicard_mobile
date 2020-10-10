@@ -31,8 +31,8 @@ class App extends Component {
     }
 
     this.subscriptions = [
-      commonServices.registerInterceptor(),
-      // authService.registerAuthInterceptor()
+       commonServices.registerInterceptor(),
+      //authService.registerAuthInterceptor()
     ];
   }
 

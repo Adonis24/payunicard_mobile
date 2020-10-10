@@ -52,8 +52,6 @@
     <false/>
     <key>UIStatusBarStyle</key>
     <string>UIStatusBarStyleDefault</string>
-    <key>CFBundleDisplayName</key>
-    <string>webprj</string>
     <key>UIRequiresFullScreen</key>
     <true/>
     <key>CFBundleURLTypes</key>
@@ -65,5 +63,7 @@
         </array>
       </dict>
     </array>
+    <key>CFBundleDisplayName</key>
+    <string>webprj</string>
   </dict>
 </plist>

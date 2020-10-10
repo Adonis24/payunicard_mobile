@@ -3,7 +3,6 @@ import { useState } from 'react';
 import userService from '../services/userService';
 import ht from '../services/httpService';
 import { Settings, Defaults } from 'utils';
-// import {API_URL} from 'react-native-dotenv'
 
 function useLogin(_username, _password, _otp) {
     const [username, setRawUsername] = useState(_username);
@@ -13,27 +12,21 @@ function useLogin(_username, _password, _otp) {
     const [loading, setLoading] = useState(false);
 
     const login = (successHandler) => {
-        const API_URL = 'https://testidentity.payunicard.ge:444';
         let loginObj = new FormData();
 
-        loginObj.append("username", 'gigo@gigoi.com');
-        loginObj.append("password", 'Gi123123!');
+        loginObj.append("username", 'levani1308@gmail.com');
+        loginObj.append("password", 'Lo123123!a');
         if (otp) {
             loginObj.append("otp", _otp);
         }
-        loginObj.append("IsRemember", remembers);
-        loginObj.append("scope", " Wallet_Api.Full");
+        loginObj.append("scope", "Wallet_Api.Full offline_access");
         loginObj.append("client_id", "WalletApi");
         loginObj.append("client_secret", "abcd123");
         loginObj.append("grant_type", "password");
         setLoading(true)
-        // ht._fetch(API_URL + '/connect/token', loginObj, 'post').then(response => { 
-        //     console.log('********************login request*********************', response)
-        // }).catch(err=> {
-        //     console.log('********************login error*********************', err, loginObj)
-        // })
-        axios.post(API_URL + '/connect/token', loginObj).then(response => {
-            console.log('********************login request*********************', response)
+
+        axios.post('/connect/token', loginObj).then(response => {
+             console.log('********************login request*********************', response)
             if (response && response.access_token) {
                 if (response?.requireOtp) {
                     //show otp confirmation
@@ -42,12 +35,10 @@ function useLogin(_username, _password, _otp) {
                     if (token) {
                         Settings.setAccessToken(token);
                         Defaults.token = token;
-                        axios.defaults.headers.Authorization = `Bearer ${token}`;
                         userService.getUserDetail().then(response => {
                             console.log(response)
                             Settings.setCurrentUser(response.username);
                             Defaults.currentUsername = response.username;
-                            setLoading(false);
                             //successHandler();
                         }).catch((err) => {
                             setLoading(false);
@@ -55,8 +46,9 @@ function useLogin(_username, _password, _otp) {
                     }
                 }
             }
+            setLoading(false);
         }).catch((err) => {
-            console.log('********************login error*********************', err, loginObj)
+            //console.log(JSON.parse(JSON.stringify(err)));
             setLoading(false);
         })
 

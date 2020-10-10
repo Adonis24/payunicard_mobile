@@ -1,7 +1,8 @@
 import axios from 'axios';
 import {Defaults, isAndroid, Settings, showErrorWithMessage} from 'utils';
 import Constants from 'expo-constants';
-
+import { Localization } from 'expo';
+import Config from '../../config';
 
 class CommonService {
 
@@ -11,7 +12,7 @@ class CommonService {
         return 'Exception occurred'
     }
 
-    _handleIntErrorIfNeeded(uri, response) {
+    _handleIntErrorIfNeeded(response, uri = '') {
 
         let message = '';
         if (response.displayText) {
@@ -45,40 +46,48 @@ class CommonService {
             config.headers = config.headers || {};
             let headers = {
                 'Content-Type': 'application/json',
-                Accept: 'application/json',
+                'Accept': 'application/json',
                 'device': 'APN UUID',
                 'appSource': 'Mobile',
                 'os': isAndroid() ? 'Android' : 'iOS',
-                'osVersion': isAndroid() ? Constants.platform.android.versionCode : Constants.platform.ios.systemVersion, //TODO: Sandrik - Handle Android
+                'osVersion': isAndroid() ? Constants.platform.android.versionCode : Constants.platform.ios.systemVersion, 
                 'deviceCurrentTime': (new Date).getTime(),
                 'langCode': Defaults.locale === 'ka' ? 'ka-GE' : 'en-US',
                 'appVersion': Constants.nativeAppVersion,
-                'deviceTimeZone': 'timezone' //Localization.timezone
+                'deviceTimeZone': 'Localization.timezone'
             };
-            // config.headers = {...config.headers, ...headers}
-            console.log('********************common interceptor request*********************', config)
+            config.headers = {...config.headers, ...headers}
+            if(config.url == '/connect/token') {
+                config.baseURL = Config.AUTH_URL;
+            }
+        
+            if (Defaults.token && config.url != '/connect/token') {
+                  config.baseURL = Config.API_URL_TEST;
+               config.headers['Authorization'] = `Bearer ${Defaults.token}`;
+            }
+
+            console.log(JSON.parse(JSON.stringify(config)))
             return config;
         });
 
         let responseInterceptor = axios.interceptors.response.use(response => {
-            console.log('********************common interceptor*********************',response)
             let data = response.data || {};
-            if (data.errors) {
-                response.displayText = data.errors || "validation.error";
+            let errors = data.errors || data.Errors;
+            if (errors) {
+                response.displayText = errors.displayText || "validation.error";
+                response.errorMessage = errors.errorMessage || "validation.error";
                 response.customError = true;
                 return Promise.reject(response);
             }
             return Promise.resolve(data);
         },
-            error => {
-                console.log('********************common interceptor error*********************',JSON.stringify(error))
-                
+        error => {
+                console.log(JSON.parse(JSON.stringify(error)));
                 if (navigator && !navigator.onLine) {
-                    console.log("No internet connection");
                     error.displayText = "No internet connection";
                 }
                 else error.displayText = "error";
-                this._handleIntErrorIfNeeded('uri', error)
+                this._handleIntErrorIfNeeded(error)
                 return Promise.reject(error);
             }
         );

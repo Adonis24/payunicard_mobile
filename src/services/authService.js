@@ -1,6 +1,7 @@
 import axios from 'axios';
 import {Defaults, isAndroid, Settings, showErrorWithMessage} from 'utils';
 import Constants from 'expo-constants';
+import Config from '../../config';
 
 class AuthServices {
 
@@ -21,6 +22,7 @@ class AuthServices {
                 'deviceTimeZone': 'timezone' //Localization.timezone
             };
             config.headers = {...config.headers, ...headers}
+           // config.url = Config.API_URL_TEST + config.url.replace(Config.AUTH_URL_TEST, '');
             if (Defaults.token) {
                 config.headers['Authorization'] = `Bearer ${Defaults.token}`;
             }
@@ -39,10 +41,10 @@ class AuthServices {
 
         //add auth header
         let requestInterceptor = axios.interceptors.request.use((config) => {
-            // if (Defaults.token) {
-            //     setAuthToken(config);
-            // }
-            // console.log('********************auth interceptor request*********************', config.headers)
+            if (Defaults.token) {
+                setAuthToken(config);
+            }
+             console.log('********************auth interceptor request*********************', config.headers)
             return config;
         });
 

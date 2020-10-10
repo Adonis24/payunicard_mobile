@@ -56,7 +56,7 @@ class httpService {
         return this._fetch(uri, payload, 'put');
     }
 
-    _handleIntErrorIfNeeded(uri, response) {
+    _handleIntErrorIfNeeded(uri = '', response = {}) {
 
         let message = '';
         if (response.displayText) {
